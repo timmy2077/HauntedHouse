@@ -11,5 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_3DStealthGame/Scene/Main.unity
     guid: 9805302502b3df14182b35613d6c48ef
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 8c18f57ca514f6b48ba1a309847ad82b,
+      type: 3}
   m_UseUCBPForAssetBundles: 0

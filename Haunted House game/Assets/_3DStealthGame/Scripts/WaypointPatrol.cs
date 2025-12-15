@@ -19,6 +19,13 @@ public class WaypointPatrol : MonoBehaviour
 
     void FixedUpdate ()
     {
+        // 添加空值检查，防止未赋值导致的错误
+        if (waypoints == null || waypoints.Length == 0)
+        {
+            
+            return; // 如果没有路点，提前退出
+        }
+
         Transform currentWaypoint = waypoints[m_CurrentWaypointIndex];
         Vector3 currentToTarget = currentWaypoint.position - m_RigidBody.position;
 

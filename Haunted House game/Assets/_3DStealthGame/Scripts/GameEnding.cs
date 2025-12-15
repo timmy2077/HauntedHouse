@@ -12,6 +12,7 @@ public class GameEnding : MonoBehaviour
     public AudioSource caughtAudio;
     bool m_HasAudioPlayed;
     bool m_IsPlayerAtExit;
+    bool m_IsAIPresent;
     bool m_IsPlayerCaught;
     float m_Timer;
     
@@ -29,6 +30,9 @@ public class GameEnding : MonoBehaviour
         m_CaughtScreen.style.opacity = 0f;
         m_EndScreen.visible = false;
         m_CaughtScreen.visible = false;
+        
+        // 初始设置AI不在出口
+        m_IsAIPresent = false;
     }
     
     void OnTriggerEnter (Collider other)
@@ -36,6 +40,22 @@ public class GameEnding : MonoBehaviour
         if (other.gameObject == player)
         {
             m_IsPlayerAtExit = true;
+        }
+        else if (other.CompareTag("AI"))
+        {
+            m_IsAIPresent = true;
+        }
+    }
+    
+    void OnTriggerExit (Collider other)
+    {
+        if (other.gameObject == player)
+        {
+            m_IsPlayerAtExit = false;
+        }
+        else if (other.CompareTag("AI"))
+        {
+            m_IsAIPresent = false;
         }
     }
     
@@ -46,7 +66,8 @@ public class GameEnding : MonoBehaviour
     
     void Update ()
     {
-        if (m_IsPlayerAtExit)
+        // 只有当Player和AI都在出口时才结束游戏
+        if (m_IsPlayerAtExit && m_IsAIPresent)
         {
             m_CurrentScreen = m_EndScreen;
             EndLevel(false, exitAudio);
